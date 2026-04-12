@@ -85,6 +85,12 @@ h4 {
   overflow: hidden; /* Prevents overflowed text/icons from showing */
 }
 
+/* Targets the area behind the <dialog> when opened with showModal() */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  backdrop-filter: blur(3px);          /* Optional: adds a soft blur */
+}
+
 /* ===============
    Main Layout
 ================ */
