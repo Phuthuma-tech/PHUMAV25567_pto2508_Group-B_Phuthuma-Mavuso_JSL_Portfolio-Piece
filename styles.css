@@ -175,6 +175,154 @@ header {
 
 .logo-mobile {
   display: none; /* Hidden on desktop; shown on smaller screens */
+ 
+}
+
+/* ===============
+   Sidebar Button Feature
+================ */
+
+/* Sidebar default state */
+.side-bar {
+  width: 300px;
+  position: fixed;
+  left: 0;
+  height: 100vh;
+  transition: transform 0.3s ease; /* Smooth sliding */
+  z-index: 10;
+}
+
+/* Main Layout default state */
+#layout {
+  margin-left: 300px;
+  transition: margin-left 0.3s ease;
+}
+
+/* HIDDEN STATE: What happens when sidebar-hidden is active */
+.sidebar-hidden .side-bar {
+  transform: translateX(-100%); /* Moves sidebar off-screen */
+}
+
+.sidebar-hidden #layout {
+  margin-left: 0; /* Expands content to full width */
+}
+
+/* The "Show" Button (Bottom Left Tab) */
+.show-sidebar-btn {
+  display: none; /* Hidden by default */
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  background-color: #635fc7;
+  border: none;
+  border-radius: 0 100px 100px 0; /* Rounded on the right side */
+  padding: 18px 22px;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Reveal the show button only when sidebar is hidden */
+.sidebar-hidden .show-sidebar-btn {
+  display: block;
+}
+
+/* The 'Eye' Tab (Bottom Left) */
+.show-sidebar-btn {
+  display: none; /* Hidden when sidebar is visible */
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  z-index: 40;
+  
+  background-color: #635fc7;
+  border: none;
+  /* Rounded only on the right to look like a tab coming from the edge */
+  border-radius: 0 100px 100px 0; 
+  padding: 18px 22px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.show-sidebar-btn:hover {
+  background-color: #a8a4ff;
+  padding-right: 30px; /* Slight expansion on hover for a nice effect */
+}
+
+/* Logic: Only show the eyes when the .sidebar-hidden class is on the body */
+.sidebar-hidden .show-sidebar-btn {
+  display: block;
+}
+
+/* Hide Sidebar Button (Inside the sidebar) */
+.hide-sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: none;
+  border: none;
+  color: #828fa3;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  padding: 15px 25px;
+  transition: color 0.2s ease;
+}
+
+.hide-sidebar-btn:hover {
+  color: #635fc7;
+}
+
+/* Update these specific parts in your styles.css */
+
+.side-bar {
+  width: 300px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: var(--white); /* Ensure it has a background */
+  transition: transform 0.3s ease-in-out; /* Crucial for smooth movement */
+  z-index: 100; /* Higher than the layout */
+}
+
+#layout {
+  transition: margin-left 0.3s ease-in-out; /* Crucial for layout expansion */
+  margin-left: 300px;
+}
+
+/* Hidden States */
+.sidebar-hidden .side-bar {
+  transform: translateX(-100%);
+}
+
+.sidebar-hidden #layout {
+  margin-left: 0;
+}
+
+/* The Eye Button */
+.show-sidebar-btn {
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  z-index: 999; /* HIGHEST Z-INDEX to ensure it is clickable */
+  background-color: #635fc7;
+  border: none;
+  border-radius: 0 100px 100px 0;
+  padding: 18px 22px;
+  cursor: pointer;
+  display: none; /* Hidden by default */
+
+  pointer-events: auto;
+}
+
+#layout {
+  /* Ensure layout doesn't have a massive z-index fighting the button */
+  z-index: 1;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar-hidden .show-sidebar-btn {
+  display: block; /* Only show when sidebar is tucked away */
 }
 
 /* ===============
