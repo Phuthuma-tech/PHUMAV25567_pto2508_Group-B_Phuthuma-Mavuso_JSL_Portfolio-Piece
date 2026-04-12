@@ -31,15 +31,32 @@
 
       <!-- Hide and show sidebar Button-->
       <div class="sidebar-footer">
-        <button id="hide-side-bar-btn" class="hide-sidebar-btn">
+  <!--      <button id="hide-side-bar-btn" class="hide-sidebar-btn">
           <img src="./assets/icon-hide-sidebar.svg" alt="hide-icon">
           <span>Hide Sidebar</span>
-        </button>
+        </button> -->
       </div>
 
       <button id="show-side-bar-btn" class="show-sidebar-btn">
         <img src="./assets/icon-show-sidebar.svg" alt="show-icon">
       </button>
+
+      <!--Adding the light to dark theme button-->
+      <div class="sidebar-footer">
+        <div class="theme-toggle-container">
+          <img src="./assets/icon-light-theme.svg" alt="light" /> 
+          <label class="switch">
+            <input type="checkbox" id="theme-switch" />
+            <span class="slider round"></span>
+          </label>
+          <img src="./assets/icon-dark-theme.svg" alt="dark" />
+        </div>
+
+        <button id="hide-side-bar-btn" class="hide-sidebar-btn">
+          <img src="./assets/icon-hide-sidebar.svg" alt="hide-icon" />
+          <span>Hide Sidebar</span>
+        </button>
+      </div>
 
       
     </nav>
@@ -116,6 +133,15 @@
           </select>
         </div>
 
+        <div class="input-div">
+          <label for="edit-task-priority">Priority</label>
+          <select id="edit-task-priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
         <div class="edit-button-group">
           <button type="submit" id="save-task-btn" class="primary-btn">Save Changes</button>
           <button type="button" id="delete-task-btn" class="delete-btn">Delete Task</button>
@@ -156,6 +182,15 @@
             <option value="todo">todo</option>
             <option value="doing">doing</option>
             <option value="done">done</option>
+          </select>
+        </div>
+
+        <div class="input-div">
+          <label for="task-priority">Priority</label>
+          <select id="task-priority" class="priority-select">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
           </select>
         </div>
 
