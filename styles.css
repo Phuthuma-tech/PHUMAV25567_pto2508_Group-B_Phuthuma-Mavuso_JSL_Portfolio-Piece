@@ -15,6 +15,54 @@
   --sidebar-width: 300px; /* Sidebar fixed width */
 }
 
+/* Targets the backdrop of BOTH modals automatically */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Darkens the screen */
+  backdrop-filter: blur(2px);          /* Adds a slight blur */
+}
+
+/* Style the new button group for the Edit modal */
+.edit-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.delete-btn {
+  background-color: #ea5555;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #ff9898;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.edit-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.delete-btn {
+  background-color: #ea5555;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 /* ================
    Base Elements
 ================ */
@@ -89,7 +137,10 @@ h4 {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
   backdrop-filter: blur(3px);          /* Optional: adds a soft blur */
+
 }
+
+
 
 /* ===============
    Main Layout

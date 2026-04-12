@@ -5,11 +5,11 @@ export function addNewTask() {
   const description = document.getElementById("desc-input").value.trim();
   const status = document.getElementById("select-status").value;
 
-  if (!title) return null; // Return null if invalid
+  if (!title) return null;
 
   const tasks = loadTasksFromStorage();
   const newTask = {
-    id: tasks.length ? Math.max(...tasks.map((t) => t.id)) + 1 : 1,
+    id: Date.now(),
     title,
     description,
     status,
@@ -17,7 +17,22 @@ export function addNewTask() {
 
   const updatedTasks = [...tasks, newTask];
   saveTasksToStorage(updatedTasks);
+  return updatedTasks;
+}
 
-  // Return the updated data so the UI can decide how to render it
-  return updatedTasks; 
+export function updateTask(taskId, updatedDetails) {
+  const tasks = loadTasksFromStorage();
+  const index = tasks.findIndex(t => t.id == taskId);
+  if (index !== -1) {
+    tasks[index] = { ...tasks[index], ...updatedDetails };
+    saveTasksToStorage(tasks);
+  }
+  return tasks;
+}
+
+export function deleteTask(taskId) {
+  const tasks = loadTasksFromStorage();
+  const filtered = tasks.filter(t => t.id != taskId);
+  saveTasksToStorage(filtered);
+  return filtered;
 }
