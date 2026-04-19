@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,20 +7,16 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./assets/favicon.svg"
-    />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon.svg" />
     <script defer src="./scripts/main.js" type="module"></script>
     <title>Kanban Task Management</title>
   </head>
 
   <body>
+    <!-- Navigation Sidebar: logo, board links, theme toggle, hide button -->
     <nav class="side-bar" id="side-bar-div">
       <div id="side-logo-div">
-        <img id="logo" src="./assets/logo-light.svg" alt="logo-light" />
+        <img id="logo" src="./assets/logo-light.svg" alt="Kanban logo" />
       </div>
 
       <div class="boards-nav-links-div" id="boards-nav-links-div">
@@ -29,77 +24,71 @@
         <button class="board-btn">Launch Career</button>
       </div>
 
-      <!-- Hide and show sidebar Button-->
-      <div class="sidebar-footer">
-  <!--      <button id="hide-side-bar-btn" class="hide-sidebar-btn">
-          <img src="./assets/icon-hide-sidebar.svg" alt="hide-icon">
-          <span>Hide Sidebar</span>
-        </button> -->
-      </div>
-
-      <button id="show-side-bar-btn" class="show-sidebar-btn">
-        <img src="./assets/icon-show-sidebar.svg" alt="show-icon">
-      </button>
-
-      <!--Adding the light to dark theme button-->
+      <!-- Sidebar footer: theme toggle + hide button -->
       <div class="sidebar-footer">
         <div class="theme-toggle-container">
-          <img src="./assets/icon-light-theme.svg" alt="light" /> 
+          <img src="./assets/icon-light-theme.svg" alt="Light theme" />
           <label class="switch">
             <input type="checkbox" id="theme-switch" />
             <span class="slider round"></span>
           </label>
-          <img src="./assets/icon-dark-theme.svg" alt="dark" />
+          <img src="./assets/icon-dark-theme.svg" alt="Dark theme" />
         </div>
 
         <button id="hide-side-bar-btn" class="hide-sidebar-btn">
-          <img src="./assets/icon-hide-sidebar.svg" alt="hide-icon" />
+          <img src="./assets/icon-hide-sidebar.svg" alt="Hide sidebar icon" />
           <span>Hide Sidebar</span>
         </button>
       </div>
-
-      
     </nav>
 
+    <!-- Show Sidebar tab: only visible when sidebar is hidden -->
+    <button id="show-side-bar-btn" class="show-sidebar-btn" aria-label="Show Sidebar">
+      👁️
+    </button>
+
+    <!-- Main Layout -->
     <div id="layout">
       <header id="header" class="sticky-header">
         <div class="header-name-div">
-          <img
-            src="./assets/favicon.svg"
-            alt="logo-mobile"
-            class="logo-mobile"
-          />
-          <h2 class="header-board-name" id="header-board-name">
-            Launch Career
-          </h2>
+          <!-- Mobile: tap logo to open sidebar as menu -->
+          <img src="./assets/favicon.svg" alt="Open menu" class="logo-mobile" />
+          <h2 class="header-board-name" id="header-board-name">Launch Career</h2>
         </div>
-        <button id="add-new-task-btn" class="primary-btn">
-          + Add New Task
-        </button>
+        <button id="add-new-task-btn" class="primary-btn">+ Add New Task</button>
       </header>
+
+      <!-- Loading & error feedback -->
+      <p id="loading-indicator" style="display:none; padding:20px; text-align:center;">
+        Loading tasks…
+      </p>
+      <p id="error-message" style="display:none; padding:20px; text-align:center; color:#ea5555;"></p>
 
       <div class="container">
         <main class="card-column-main">
+          <!-- TODO Column -->
           <div class="column-div" data-status="todo">
             <div id="todo-head-div" class="column-head-div">
               <span class="dot" id="todo-dot"></span>
-              <h4 id="toDoText" class="columnHeader">TODO</h4>
+              <h4 id="toDoText" class="columnHeader">TODO (0)</h4>
             </div>
             <div class="tasks-container"></div>
           </div>
 
+          <!-- DOING Column -->
           <div class="column-div" data-status="doing">
             <div id="doing-head-div" class="column-head-div">
               <span class="dot" id="doing-dot"></span>
-              <h4 id="doingText" class="columnHeader">DOING</h4>
+              <h4 id="doingText" class="columnHeader">DOING (0)</h4>
             </div>
             <div class="tasks-container"></div>
           </div>
 
+          <!-- DONE Column -->
           <div class="column-div" data-status="done">
             <div id="done-head-div" class="column-head-div">
               <span class="dot" id="done-dot"></span>
-              <h4 id="doneText" class="columnHeader">DONE</h4>
+              <h4 id="doneText" class="columnHeader">DONE (0)</h4>
             </div>
             <div class="tasks-container"></div>
           </div>
@@ -107,22 +96,19 @@
       </div>
     </div>
 
+    <!-- Edit Task Modal -->
     <dialog id="task-modal">
-      <form id="edit-task-form">
+      <form method="dialog" id="task-form">
         <div class="modal-header">
           <h3>Edit Task</h3>
           <button type="button" class="close-btn" id="close-modal-btn">&times;</button>
         </div>
 
-        <div class="input-div">
-          <label for="task-title">Title</label>
-          <input type="text" id="task-title" name="title" required />
-        </div>
+        <label for="task-title">Title</label>
+        <input type="text" id="task-title" name="title" required />
 
-        <div class="input-div">
-          <label for="task-desc">Description</label>
-          <textarea id="task-desc" name="description" rows="4" required></textarea>
-        </div>
+        <label for="task-desc">Description</label>
+        <textarea id="task-desc" name="description" rows="4"></textarea>
 
         <div class="input-div">
           <label for="task-status">Status</label>
@@ -149,7 +135,8 @@
       </form>
     </dialog>
 
-    <dialog id="new-task-modal" class="modal-overlay">
+    <!-- Add New Task Modal -->
+    <dialog class="modal-overlay">
       <form class="modal-window" id="new-task-modal-window">
         <div class="modal-header">
           <h3 class="modal-title">Add New Task</h3>
@@ -170,15 +157,16 @@
         <div class="input-div">
           <label class="label-modal-window" for="desc-input">Description</label>
           <textarea
+            name="description"
             id="desc-input"
-            placeholder="e.g. Pet your dog, have a cup of coffee..."
+            placeholder="e.g. Pet your dog, have a cup of coffee and come back to conquer this. 💪🏾"
             required
           ></textarea>
         </div>
 
         <div class="input-div">
           <label class="label-modal-window" for="select-status">Status</label>
-          <select id="select-status" required>
+          <select name="status" id="select-status" required>
             <option value="todo">todo</option>
             <option value="doing">doing</option>
             <option value="done">done</option>
@@ -195,17 +183,9 @@
         </div>
 
         <div class="button-group">
-          <input
-            type="submit"
-            class="submit-btn"
-            id="create-task-btn"
-            value="Create Task"
-          />
+          <input type="submit" class="submit-btn" id="create-task-btn" value="Create Task" />
         </div>
       </form>
     </dialog>
-    <button id="show-side-bar-btn" class="show-sidebar-btn" aria-label="Show Sidebar">
-      <img src="./assets/icon-show-sidebar.svg" alt="eye icon">
-    </button>
   </body>
 </html>

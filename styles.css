@@ -15,54 +15,6 @@
   --sidebar-width: 300px; /* Sidebar fixed width */
 }
 
-/* Targets the backdrop of BOTH modals automatically */
-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5); /* Darkens the screen */
-  backdrop-filter: blur(2px);          /* Adds a slight blur */
-}
-
-/* Style the new button group for the Edit modal */
-.edit-button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.delete-btn {
-  background-color: #ea5555;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.delete-btn:hover {
-  background-color: #ff9898;
-}
-
-dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(2px);
-}
-
-.edit-button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.delete-btn {
-  background-color: #ea5555;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
 /* ================
    Base Elements
 ================ */
@@ -80,14 +32,6 @@ body {
 /* ================
    Sidebar Layout
 ================ */
-.side-bar {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--primary-color);
-  border-right: 1px solid #e4ebfa; /* Light divider */
-  width: var(--sidebar-width);
-  height: 100vh;
-}
 
 #side-logo-div {
   margin: 33px 113px 54px 34px; /* Spacing around logo */
@@ -135,9 +79,7 @@ h4 {
 
 /* Targets the area behind the <dialog> when opened with showModal() */
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-  backdrop-filter: blur(3px);          /* Optional: adds a soft blur */
-
+  background-color: rgba(0, 0, 0, 0.4);
 }
 /* ========================
    Light & Dark theme
@@ -153,6 +95,7 @@ dialog::backdrop {
   border-right: 1px solid var(--lines);
   padding-bottom: 32px;
 }
+
 
 /* Push the footer to the bottom left */
 .sidebar-footer {
@@ -369,24 +312,23 @@ body {
 .dot-high { background-color: #F44336; }
 /* Priority Dot Base Styling */
 .priority-dot {
-  width: 10px !important;   /* Force width */
-  height: 10px !important;  /* Force height */
+  width: 10px !important;
+  height: 10px !important;
   border-radius: 50%;
-  display: inline-block;    /* CRITICAL: spans are hidden if they have no text and aren't blocks */
-  flex-shrink: 0;           /* Prevents the dot from squishing */
+  display: inline-block;
+  flex-shrink: 0;
 }
 
-/* Ensure the background colors are defined exactly as the classes you use */
 .dot-low { background-color: #4CAF50; }
 .dot-medium { background-color: #FF9800; }
 .dot-high { background-color: #F44336; }
-  
+
 /* Task Card Header Layout */
 .task-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 20px; /* Ensures there is space for the dot */
+  min-height: 20px;
 }
 
 /* Modal Styling for Priority Select */
@@ -396,8 +338,6 @@ body {
   background-color: var(--bg-input);
   color: var(--text-main);
 }
-
-
 /* ===============
    Main Layout
 ================ */
@@ -414,11 +354,11 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--primary-color);
-  color: var(--primary-font-color);
+  background-color: var(--bg-sidebar);
+  color: var(--text-main);
   height: 96px;
   padding: 0 35px 0 30px;
-  border-bottom: 1px solid #e4ebfa;
+  border-bottom: 1px solid var(--lines);
   width: 100%;
   font-size: 1.875rem;
   font-weight: 600;
@@ -454,62 +394,57 @@ header {
   transition: margin-left 0.3s ease;
 }
 
-/* HIDDEN STATE: What happens when sidebar-hidden is active */
+/* ===============================
+   Sidebar Hidden / Shown States
+================================ */
+
+/* Slide sidebar off-screen when hidden */
 .sidebar-hidden .side-bar {
-  transform: translateX(-100%); /* Moves sidebar off-screen */
+  transform: translateX(-100%);
 }
 
+/* Expand main content to fill full width when sidebar is gone */
 .sidebar-hidden #layout {
-  margin-left: 0; /* Expands content to full width */
+  margin-left: 0;
 }
 
-/* The "Show" Button (Bottom Left Tab) */
+/* ===============================
+   Show Sidebar Eye Button
+================================ */
+
+/* Hidden by default — only appears when .sidebar-hidden is on <body> */
 .show-sidebar-btn {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
   bottom: 32px;
   left: 0;
+  z-index: 999;
   background-color: #635fc7;
   border: none;
-  border-radius: 0 100px 100px 0; /* Rounded on the right side */
-  padding: 18px 22px;
+  border-radius: 0 100px 100px 0;
+  padding: 14px 20px;
+  font-size: 1.4rem;
+  line-height: 1;
   cursor: pointer;
-  z-index: 20;
-}
-
-/* Reveal the show button only when sidebar is hidden */
-.sidebar-hidden .show-sidebar-btn {
-  display: block;
-}
-
-/* The 'Eye' Tab (Bottom Left) */
-.show-sidebar-btn {
-  display: none; /* Hidden when sidebar is visible */
-  position: fixed;
-  bottom: 32px;
-  left: 0;
-  z-index: 40;
-  
-  background-color: #635fc7;
-  border: none;
-  /* Rounded only on the right to look like a tab coming from the edge */
-  border-radius: 0 100px 100px 0; 
-  padding: 18px 22px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, padding-right 0.2s ease;
 }
 
 .show-sidebar-btn:hover {
   background-color: #a8a4ff;
-  padding-right: 30px; /* Slight expansion on hover for a nice effect */
+  padding-right: 28px;
 }
 
-/* Logic: Only show the eyes when the .sidebar-hidden class is on the body */
+/* Reveal when sidebar is hidden */
 .sidebar-hidden .show-sidebar-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Hide Sidebar Button (Inside the sidebar) */
+/* ===============================
+   Hide Sidebar Button (in nav)
+================================ */
+
 .hide-sidebar-btn {
   display: flex;
   align-items: center;
@@ -526,59 +461,6 @@ header {
 
 .hide-sidebar-btn:hover {
   color: #635fc7;
-}
-
-/* Update these specific parts in your styles.css */
-
-.side-bar {
-  width: 300px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  background-color: var(--white); /* Ensure it has a background */
-  transition: transform 0.3s ease-in-out; /* Crucial for smooth movement */
-  z-index: 100; /* Higher than the layout */
-}
-
-#layout {
-  transition: margin-left 0.3s ease-in-out; /* Crucial for layout expansion */
-  margin-left: 300px;
-}
-
-/* Hidden States */
-.sidebar-hidden .side-bar {
-  transform: translateX(-100%);
-}
-
-.sidebar-hidden #layout {
-  margin-left: 0;
-}
-
-/* The Eye Button */
-.show-sidebar-btn {
-  position: fixed;
-  bottom: 32px;
-  left: 0;
-  z-index: 999; /* HIGHEST Z-INDEX to ensure it is clickable */
-  background-color: #635fc7;
-  border: none;
-  border-radius: 0 100px 100px 0;
-  padding: 18px 22px;
-  cursor: pointer;
-  display: none; /* Hidden by default */
-
-  pointer-events: auto;
-}
-
-#layout {
-  /* Ensure layout doesn't have a massive z-index fighting the button */
-  z-index: 1;
-  transition: margin-left 0.3s ease-in-out;
-}
-
-.sidebar-hidden .show-sidebar-btn {
-  display: block; /* Only show when sidebar is tucked away */
 }
 
 /* ===============
@@ -655,8 +537,8 @@ header {
   padding-left: 15px;
   width: 100%;
   height: 60px;
-  background-color: var(--primary-color);
-  color: var(--primary-font-color);
+  background-color: var(--bg-sidebar);
+  color: var(--text-main);
   border-radius: 12px;
   box-shadow: var(--primary-box-shadow);
   cursor: pointer; /* Indicate it's clickable */
@@ -687,9 +569,7 @@ dialog {
 }
 
 /* Style the modal box */
-#task-modal::backdrop {
-  background: rgba(0, 0, 0, 0.3);
-}
+
 
 #task-modal {
   top: 40%;
@@ -817,8 +697,51 @@ form select {
   padding-right: 35px;
   font-weight: 600;
   cursor: pointer;
-  flex-grow: 1; /* Allows the button to grow and fill the space */
-  margin: 5px 0; /* Optional: adds a margin between buttons */
+  flex-grow: 1;
+  margin: 5px 0;
+}
+
+/* Edit modal button group */
+.edit-button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Save Changes button — matches Create Task purple */
+.edit-button-group .primary-btn {
+  flex: 1;
+  background-color: var(--primary-btn-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-button-group .primary-btn:hover {
+  background-color: #a8a4ff;
+}
+
+/* Delete Task button — red */
+.delete-btn {
+  flex: 1;
+  background-color: #ea5555;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 20px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #ff9898;
 }
 
 textarea {
@@ -836,6 +759,10 @@ textarea {
 
 /******** Tablets ********/
 @media screen and (max-width: 1023px) {
+  #layout {
+    margin-left: 0 !important; /* Reset sidebar push on smaller screens */
+  }
+
   .side-bar {
     display: none; /* Hide sidebar on tablets and smaller */
   }
@@ -937,5 +864,17 @@ textarea {
     padding-right: 14px;
     padding-top: 0;
     padding-bottom: 0;
+  }
+
+  /* Stack edit modal buttons vertically, full width */
+  .edit-button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .edit-button-group .primary-btn,
+  .delete-btn {
+    width: 100%;
+    text-align: center;
   }
 }

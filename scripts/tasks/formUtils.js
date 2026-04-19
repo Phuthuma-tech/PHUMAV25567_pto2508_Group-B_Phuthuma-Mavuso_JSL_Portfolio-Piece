@@ -1,6 +1,19 @@
+/**
+ * @module formUtils
+ * @description Utility functions for resetting form inputs.
+ */
+
+/**
+ * Resets the "Add New Task" form to its default empty state.
+ */
 export function resetForm() {
-  // IDs updated to match the inputs in <form id="new-task-modal-window">
-  document.getElementById("title-input").value = "";
-  document.getElementById("desc-input").value = "";
-  document.getElementById("select-status").value = "todo";
+  const titleInput = document.getElementById("title-input");
+  const descInput = document.getElementById("desc-input");
+  const statusSelect = document.getElementById("select-status");
+  const prioritySelect = document.getElementById("task-priority");
+
+  if (titleInput) titleInput.value = "";
+  if (descInput) descInput.value = "";
+  if (statusSelect) statusSelect.value = "todo";
+  if (prioritySelect) prioritySelect.value = "low";
 }
