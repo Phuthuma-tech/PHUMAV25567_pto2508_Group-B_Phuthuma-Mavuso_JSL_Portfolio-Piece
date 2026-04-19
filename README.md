@@ -5,7 +5,7 @@ A professional, dynamic Kanban board designed for streamlined task management. T
 
 ### 🔗 Project Links
 * **Live Deployment:** [https://kanbanmanagement.netlify.app/]
-* **Recorded Presentation:** [Insert Loom/Video Link Here]
+* **Recorded Presentation:** [https://youtu.be/XZssFwzyU7I]
 
 ---
 
